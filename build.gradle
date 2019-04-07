@@ -4,7 +4,7 @@ buildscript {
         maven { url = "http://files.minecraftforge.net/maven" }
         maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
-    dependencies { classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT' }
+    dependencies { classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT' }
 }
 
 apply plugin: 'forge'
@@ -26,8 +26,11 @@ group = "info.loenwind"
 archivesBaseName = "EnderIOAddons"
 version = "${enderio_version}-${mod_version}.${buildnumber}"
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+targetCompatibility = 1.8
 
 if (project.hasProperty('mod_appendix'))
     version += "_${project.mod_appendix}"
@@ -35,6 +38,8 @@ if (project.hasProperty('mod_appendix'))
 minecraft {
     version = "${minecraft_version}-${forge_version}"
     runDir = 'run'
+	
+	mappings = "snapshot_20171003"
 
     replace "@VERSION@", mod_version
    	replace "${toReplace}", "required-after:Forge@[${forgeDep_version},);required-after:endercore@[${endercore_version},);required-after:EnderIO@[${enderio_version},);after:waterhooks[${waterhooks_version},);after:AgriCraft@[${agricraft_version},)"
@@ -54,6 +59,8 @@ repositories {
     maven { url = "http://maven.tterrag.com" }
     maven { url = "http://maven.ic2.player.to" }
     maven { url = "http://maven.cil.li/" }
+    maven { url = "http://tehnut.info/maven" }
+
     mavenLocal()
 }
 
@@ -69,16 +76,15 @@ dependencies {
     }
 
     compile "com.mod-buildcraft:buildcraft:${buildcraft_version}:api"
-    compile "mcp.mobius.waila:Waila:${waila_version}_${minecraft_version}:dev"
+    compile "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}:dev"
     compile "net.sengir.forestry:${forestry_version}:api"
 
-    // WAILA ships really old CCC/CCL versions, so we force the new versions
+    // WAILA ships a really old CCL version, so we force the new version
     compile "codechicken:CodeChickenLib:${minecraft_version}-${ccl_version}:dev"
-    compile "codechicken:CodeChickenCore:${minecraft_version}-${ccc_version}:dev"
 
     exportedCompile "com.thoughtworks.xstream:xstream:1.4.8"
 
-    compile files("lib/AgriCraft-1.7.10-1.4.2-api.jar")
+    compile files("lib/agricraft-2.12.0-1.12.0-a6-api.jar")
 }
 
 sourceSets {
