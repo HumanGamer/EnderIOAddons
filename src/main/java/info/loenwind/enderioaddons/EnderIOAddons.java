@@ -9,21 +9,13 @@ import info.loenwind.enderioaddons.timer.Celeb11;
 import info.loenwind.enderioaddons.timer.Celeb24;
 import info.loenwind.enderioaddons.timer.Scheduler;
 import info.loenwind.enderioaddons.timer.Ticker;
-
-import java.util.Locale;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.*;
 
 import javax.annotation.Nonnull;
-
-import com.enderio.core.common.Lang;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import java.util.Locale;
 
 @Mod(modid = EnderIOAddons.MODID, name = EnderIOAddons.MOD_NAME, version = EnderIOAddons.VERSION, dependencies = "required-after:EnderIO;after:waterhooks;after:AgriCraft", guiFactory = "info.loenwind.enderioaddons.config.gui.ConfigFactory")
 public class EnderIOAddons implements InitAware {
